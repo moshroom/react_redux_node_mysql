@@ -8,7 +8,7 @@ import React, { Component } from 'react'
 // import './style.less'
 // import Animation from '../../royal/Other/QueueAnimation/'
 
-// import 'antd/dist/antd.css'
+import 'antd/dist/antd.less'
 
 
 // redux
@@ -19,11 +19,16 @@ import { push } from 'react-router-redux'
 // import { auth, getPageNames, updateCurrentPage } from '../../redux/actions/page'
 
 import Input from '../../royal/formcontrol/input/input'
+import LoginForm from '../../royal/formcontrol/login'
 
 class Door extends Component {
 
     constructor(props) {
         super(props)
+        this.state={
+            userName:'',
+            password:'',
+        }
     }
 
     componentDidMount() {
@@ -38,7 +43,18 @@ class Door extends Component {
                 <option>{page.get('p_name')}</option>)
         }
     }
-
+    onChangeUserName = (e) => {
+        this.setState({ userName: e});
+    }
+    emitEmpty = () => {
+        this.setState({ userName: '' });
+    }
+    onChangePass = (e) => {
+        this.setState({ password: e});
+    }
+    passEmpty = () => {
+        this.setState({ password: '' });
+    }
     render() {
         // let { pageNames } = this.props;
         // let error = PureRenderMixin.loadDetection([pageNames])
@@ -62,7 +78,22 @@ class Door extends Component {
                     </Animation>*/}
                     welcome to my page
                 </div>
-                <Input></Input>
+                <Input
+                    placeholder="Enter your username"
+                    prefix='user'
+                    value={this.state.userName}
+                    onChange={this.onChangeUserName}
+                    emitEmpty={this.emitEmpty}>
+                </Input>
+                <Input
+                    placeholder="Enter your password"
+                    prefix='lock'
+                    value={this.state.password}
+                    inputType='password'
+                    onChange={this.onChangePass}
+                    emitEmpty={this.passEmpty}>
+                </Input>
+                <LoginForm></LoginForm>
             </div>
         )
     }

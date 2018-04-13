@@ -37,8 +37,10 @@ module.exports = {
 
     // 用户登录
     doGetUserItemByName: function(req, res) {
+        // let decodedata = decodeURIComponent(req.body);  
         var props = req.body;
-        props.password = Helper.getMD5(req.body.password);
+        console.log(props)
+        props.password = Helper.getMD5(props.password);
         console.log(props.password)
         var user = new User({ props: props });
         user.getUserItemByName(function(err, data) {

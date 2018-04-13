@@ -27,7 +27,7 @@ User.prototype.getUserAllItems = function(callback) {
 }
 //用户登陆接口
 User.prototype.getUserItemByName = function(callback) {
-    var _sql=`select id from user where isuse=0 and user_name='${this.props.name}' and password='${this.props.password}'`
+    var _sql=`select id from user where isuse=0 and user_name='${this.props.userName}' and password='${this.props.password}'`
     console.log(_sql)
     helper.db_query({
         connect: con,
