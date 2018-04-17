@@ -5,11 +5,11 @@
  **/
 
 import React, { Component } from 'react'
-// import './style.less'
+import './style.less'
 // import Animation from '../../royal/Other/QueueAnimation/'
 
 import 'antd/dist/antd.less'
-
+import 'bootstrap/dist/css/bootstrap.css'
 
 // redux
 import { bindActionCreators } from 'redux'
@@ -43,18 +43,6 @@ class Door extends Component {
                 <option>{page.get('p_name')}</option>)
         }
     }
-    onChangeUserName = (e) => {
-        this.setState({ userName: e});
-    }
-    emitEmpty = () => {
-        this.setState({ userName: '' });
-    }
-    onChangePass = (e) => {
-        this.setState({ password: e});
-    }
-    passEmpty = () => {
-        this.setState({ password: '' });
-    }
     render() {
         // let { pageNames } = this.props;
         // let error = PureRenderMixin.loadDetection([pageNames])
@@ -76,24 +64,16 @@ class Door extends Component {
                         <div onClick={()=>this.toHome()}
                             className="input-submit">抢福利（仅对合作企业开放）</div>
                     </Animation>*/}
-                    welcome to my page
+                    <div className='login-bg'></div>
+                    
                 </div>
-                <Input
-                    placeholder="Enter your username"
-                    prefix='user'
-                    value={this.state.userName}
-                    onChange={this.onChangeUserName}
-                    emitEmpty={this.emitEmpty}>
-                </Input>
-                <Input
-                    placeholder="Enter your password"
-                    prefix='lock'
-                    value={this.state.password}
-                    inputType='password'
-                    onChange={this.onChangePass}
-                    emitEmpty={this.passEmpty}>
-                </Input>
-                <LoginForm></LoginForm>
+                <div className="login-item">
+                    <div className="container">
+                        <p>This content is password protected. To view it please enter your password below:</p>
+                        <LoginForm></LoginForm>
+                    </div>
+                </div>
+                
             </div>
         )
     }

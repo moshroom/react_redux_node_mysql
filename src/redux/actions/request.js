@@ -14,8 +14,9 @@ export function request(route, params, dispatch, success=null, error=null, { met
     // dispatch({ type: TYPES.REQUEST_PEDDING, [pendingTasks]: begin })
     // if (method !== 'GET') dispatch({ type: TYPES.REQUEST_LOADING })
     // 处理query
-    const p = params ? '?' + Object.entries(params).map((i) => `${i[0]}=${encodeURI(i[1])}`).join('&') : '';
-    const uri = `${ CONFIG.API_URI }${ route }${ p }`;
+    // const p = params ? '?' + Object.entries(params).map((i) => `${i[0]}=${encodeURI(i[1])}`).join('&') : '';
+    // const uri = `${ CONFIG.API_URI }${ route }${ p }`;
+    const uri = `${ route }`;
     let data = { method: method, headers: headers}
     if (method !== 'GET') data.body = body
     console.log(`[${method}]:${uri}`)

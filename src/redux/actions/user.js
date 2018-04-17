@@ -11,7 +11,29 @@ import { bodyUrlencoded } from '../../mixins/helper'
 
 export function login(opt) {
     return (dispatch) => {
+        console.log('uer',dispatch)
         const route = '/api/user/token';
+        request(route, {}, dispatch, opt.success, opt.error,
+            { method: 'POST',
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: bodyUrlencoded(opt.body) })
+    }
+}
+
+export function verifyEmail(opt) {
+    return (dispatch) => {
+        const route = '/api/user/verifymail';
+        request(route, {}, dispatch, opt.success, opt.error,
+            { method: 'POST',
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: bodyUrlencoded(opt.body) })
+    }
+}
+
+export function sendEmail(opt) {
+    console.log('sendemail')
+    return (dispatch) => {
+        const route = '/api/user/sendmail';
         request(route, {}, dispatch, opt.success, opt.error,
             { method: 'POST',
                 headers: {"Content-Type": "application/x-www-form-urlencoded"},

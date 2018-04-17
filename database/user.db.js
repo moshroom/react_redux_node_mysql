@@ -6,7 +6,8 @@
 "use strict";
 var mysql = require('mysql'),
     helper = require('../routes/helper'),
-    config = require('./config.db');
+    config = require('./config.db'),
+    mailer = require('./mailer.db');
 
 var con = mysql.createConnection(config);
 
@@ -27,12 +28,34 @@ User.prototype.getUserAllItems = function(callback) {
 }
 //用户登陆接口
 User.prototype.getUserItemByName = function(callback) {
-    var _sql=`select id from user where isuse=0 and user_name='${this.props.userName}' and password='${this.props.password}'`
+    var _sql=`select id from user where isuse=0 and user_email='${this.props.name}' and password='${this.props.password}' and verifyCode='${this.props.verifyCode}'`
     console.log(_sql)
     helper.db_query({
         connect: con,
         sql: _sql,
         name: 'getUserItemByName',
+        callback: callback
+    })
+}
+//用户验证邮箱
+User.prototype.verifyMail = function(callback) {
+    var _sql=`select id from user where isuse=0 and user_email='${this.props.email}' and verifyCode='${this.props.verifyCode}'`
+    console.log(_sql)
+    helper.db_query({
+        connect: con,
+        sql: _sql,
+        name: 'verifyMail',
+        callback: callback
+    })
+}
+//发送邮箱验证码
+User.prototype.sendMail = function(callback) {
+    var _sql=`update user set verifyCode='${this.props.verifyCode}' where user_email='${this.props.email}'`
+    console.log(_sql)
+    helper.db_query({
+        connect: con,
+        sql: _sql,
+        name: 'sendMail',
         callback: callback
     })
 }

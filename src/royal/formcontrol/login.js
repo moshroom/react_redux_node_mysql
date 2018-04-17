@@ -6,55 +6,89 @@
  **/
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { replace } from 'react-router-redux'
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 
-import { login, changePassword } from '../../redux/actions/user'
+import { login, changePassword, sendEmail, verifyEmail} from '../../redux/actions/user'
 
 const FormItem = Form.Item;
-
+// import './login.less'
 
 class NormalLoginForm extends React.Component {
-
+  constructor(props) {
+    super(props)
+    this.state={
+        userName:'',
+        checkPass:true,
+        verify: false
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
+    let that=this
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        // this.props.actions.login({
-        //         body: {
-        //             name: values.userName,
-        //             password: values.password,
-        //         },
-        //         success: () => {
-        //             // this.props.actions.replace('/m/page')
-        //             console.log('chenggong')
-        //         },
-        //         error: (message) => {
-        //             this.setState({
-        //                 checkPass: !this.state.checkPass,
-        //             })
-        //         }
-        //     })
-        fetch('http://localhost:3000/api/user/token',
-            {  
-                method: "POST",  
-                body: JSON.stringify(values),  
-                headers: {  
-                    "Content-type": "application/json; charset=UTF-8"  
-                }  //application/x-www-form-urlencoded
+        that.props.actions.verifyEmail({
+            body: {
+                email: values.userName,
+                verifyCode: values.captcha,
+            },
+            success: () => {
+                // this.props.actions.replace('/m/page')
+                console.log('chenggong')
+                this.login(values)
+            },
+            error: (message) => {
+                this.setState({
+                    verify: !this.state.verify,
+                })
             }
-        )
-            .then(function(response) {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
-                }
-                return response.json();
-            })
-            .then(function(stories) {
-                console.log(stories);
-            });
+        })
+        
       }
     });
+  }
+  login=(values)=>{
+    this.props.actions.login({
+        body: {
+            name: values.userName,
+            password: values.password,
+            verifyCode: values.captcha,
+        },
+        success: () => {
+            this.props.actions.replace('/m/page')
+            console.log('chenggong')
+        },
+        error: (message) => {
+            this.setState({
+                checkPass: !this.state.checkPass,
+            })
+        }
+    })
+  }
+  sendmail = () => {
+    console.log(document.getElementById('userName').value)
+    let that=this;
+    this.props.actions.sendEmail({
+      body: {
+          userName: that.state.userName
+      },
+      success: () => {
+          // this.props.actions.replace('/m/page')
+          console.log('chenggong')
+      },
+      error: (message) => {
+          this.setState({
+              checkPass: !this.state.checkPass,
+          })
+      }
+    })
+  }
+  getEmail = (e) => {
+    this.setState({userName:e.target.value})
   }
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -62,9 +96,11 @@ class NormalLoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [{ required: true, message: 'Please input your email!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} 
+            placeholder="Please input your email"
+            onChange={this.getEmail} />
           )}
         </FormItem>
         <FormItem>
@@ -74,6 +110,58 @@ class NormalLoginForm extends React.Component {
             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
+        {
+          this.state.verify?
+          <FormItem 
+            validateStatus="error"
+            help="Verification code error, please re-enter."
+          >
+            <Row>
+              <Col span={12}>
+                {getFieldDecorator('captcha', {
+                  rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                })(
+                  <Input/>
+                )}
+              </Col>
+              <Col span={12}>
+                <Button onClick={this.sendmail}>Get captcha</Button>
+              </Col>
+            </Row>
+          </FormItem>:
+          <FormItem>
+          <Row >
+            {/*gutter={8}*/}
+            <Col span={12}>
+              {getFieldDecorator('captcha', {
+                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+              })(
+                <Input/>
+              )}
+            </Col>
+            <Col span={12}>
+              <Button onClick={this.sendmail}>Get captcha</Button>
+            </Col>
+          </Row>
+        </FormItem>
+        }
+        {/*<FormItem 
+          validateStatus={this.state.verify?"error":"success"}
+          help={this.state.verify?"Should be combination of numbers & alphabets":null}
+        >
+          <Row gutter={8}>
+            <Col span={12}>
+              {getFieldDecorator('captcha', {
+                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+              })(
+                <Input/>
+              )}
+            </Col>
+            <Col span={12}>
+              <Button onClick={this.sendmail}>Get captcha</Button>
+            </Col>
+          </Row>
+        </FormItem>*/}
         <FormItem>
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
@@ -91,7 +179,17 @@ class NormalLoginForm extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+    return {}
+}
+
+function mapDispatchToProps(dispatch) {
+  console.log(dispatch)
+    return {
+        actions: bindActionCreators({ replace, login, changePassword, sendEmail, verifyEmail}, dispatch)
+    }
+}
 
 const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
-export default WrappedNormalLoginForm ;
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm) ;

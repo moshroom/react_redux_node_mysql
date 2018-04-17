@@ -3,7 +3,7 @@
  * @author Jade
  **/
 
-export const API_URI = '';
+export const API_URI = 'localhost:3000';
 export const USER_KEY = '@YUNSHU:USER';
 
 export const HEADERS = {
