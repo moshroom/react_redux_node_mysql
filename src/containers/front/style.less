@@ -1,6 +1,6 @@
 @background-color-first: #fff;
 @background-color-second: #f5f5f5;
-.door {
+@input-margin: 24px;
     .mask {
 
         .login-bg {
@@ -11,6 +11,9 @@
                 height: 200px;
             }   
         }
+    }
+    .profile>.mask>.login-bg{
+        background:url('http://sfjtechnologies.com/wp-content/themes/sfj/img/slider_contact.jpg') no-repeat center center;    
     }
     .login-item{
         background: @background-color-second;
@@ -23,6 +26,7 @@
             font-family: 'Roboto', sans-serif;
             margin-bottom: 1em;
         }
+        // login
         .login-form{
             width:300px;
             .ant-form-item-children{
@@ -37,6 +41,25 @@
                 display: inline-block;
             }
         }
+        // home download
+        .search{
+            max-width: 800px;
+            .search-item{
+                margin-bottom: @input-margin;
+            }
+        }
+        // profile
+        .bloc-left{
+            margin-top: -150px;
+            background: #1a1360;
+            padding: 40px 40px 20px 40px;
+            p,h1,a{
+                color: white;
+                font-size: 16px;
+            }
+        }
+    }
+    .download-log{
+        background-color: white;
     }
     
-}

@@ -1,0 +1,41 @@
+@menu_active_bgcolor:#1a1360;
+@menu_font_color: #000;
+@font_size: 16px;
+.menu-nav {
+    #main-logo{
+        display: inline-block;
+        img{
+            height: 38px;
+            width: auto;
+        }
+    }
+    #menu{
+        float: right;
+        ul{
+            li{
+                color: @menu_font_color;
+                a{
+                    color: @menu_font_color;
+                    font-size: @font_size;
+                    text-decoration: none;
+                }
+            }
+            li.ant-menu-item-active {
+                background: @menu_active_bgcolor;
+                border-bottom: none;
+                color: white;
+                a{
+                    color: white;
+                }
+            }
+            li.ant-menu-item-selected {
+                background: @menu_active_bgcolor;
+                border-bottom: none;
+                a{
+                    color: white;
+                }
+            }
+        }
+        
+    }
+}

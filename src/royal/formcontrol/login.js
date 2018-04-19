@@ -59,7 +59,7 @@ class NormalLoginForm extends React.Component {
             verifyCode: values.captcha,
         },
         success: () => {
-            this.props.actions.replace('/m/page')
+            this.props.actions.replace('/home')
             console.log('chenggong')
         },
         error: (message) => {
@@ -70,7 +70,6 @@ class NormalLoginForm extends React.Component {
     })
   }
   sendmail = () => {
-    console.log(document.getElementById('userName').value)
     let that=this;
     this.props.actions.sendEmail({
       body: {
@@ -116,7 +115,7 @@ class NormalLoginForm extends React.Component {
             validateStatus="error"
             help="Verification code error, please re-enter."
           >
-            <Row>
+            <Row gutter={8}>
               <Col span={12}>
                 {getFieldDecorator('captcha', {
                   rules: [{ required: true, message: 'Please input the captcha you got!' }],
@@ -130,7 +129,7 @@ class NormalLoginForm extends React.Component {
             </Row>
           </FormItem>:
           <FormItem>
-          <Row >
+          <Row gutter={8}>
             {/*gutter={8}*/}
             <Col span={12}>
               {getFieldDecorator('captcha', {
