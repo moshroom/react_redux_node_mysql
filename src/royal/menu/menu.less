@@ -4,16 +4,26 @@
 .menu-nav {
     #main-logo{
         display: inline-block;
+        height: 68px;
+        width: 200px;
+        position: relative;
         img{
             height: 38px;
             width: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
         }
     }
     #menu{
         float: right;
         ul{
+            line-height: 68px;
+            border-bottom: none;
             li{
                 color: @menu_font_color;
+                border-bottom: none;
                 a{
                     color: @menu_font_color;
                     font-size: @font_size;

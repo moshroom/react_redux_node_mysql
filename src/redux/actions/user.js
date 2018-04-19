@@ -13,7 +13,11 @@ export function login(opt) {
     return (dispatch) => {
         console.log('uer',dispatch)
         const route = '/api/user/token';
-        request(route, {}, dispatch, opt.success, opt.error,
+        const success = (data) => {
+            dispatch({ type: TYPES.USER_LOG_INFOS, result: {items: data} })
+            opt.success && opt.success(data)
+        }
+        request(route, {}, dispatch, success, opt.error,
             { method: 'POST',
                 headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: bodyUrlencoded(opt.body) })
@@ -48,5 +52,10 @@ export function changePassword(opt) {
             { method: 'POST',
                 headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: bodyUrlencoded(opt.body) })
+    }
+}
+export function cleanUser(opt) {
+    return (dispatch) => {
+        dispatch({ type: TYPES.USER_CLEAN_INFOS })
     }
 }

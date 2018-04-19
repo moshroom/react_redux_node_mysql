@@ -12,8 +12,8 @@ import './menu.less'
 // redux
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import { replace } from 'react-router-redux'
+import { Link } from 'react-router'
+import { push, replace } from 'react-router-redux'
 import { Menu, Icon } from 'antd';
 
 
@@ -26,7 +26,7 @@ class Sfjmenu extends Component {
     constructor(props) {
         super(props)
         this.state={
-            current: 'mail',
+            current: 'login',
         }
     }
 
@@ -41,13 +41,15 @@ class Sfjmenu extends Component {
             current: e.key,
         });
     }
-    goProfile=()=>{
-        this.props.actions.replace('/profile')
+    goProfile=(e)=>{
+
+        this.props.actions.replace('/'+e.target.getAttribute('data-key'))
     }
     render() {
         // let { pageNames } = this.props;
         // let error = PureRenderMixin.loadDetection([pageNames])
         // if (error) return error
+       
         return (
             <div className="menu-nav">
                 <header className="container">
@@ -63,22 +65,34 @@ class Sfjmenu extends Component {
                             mode="horizontal"
                         >
                             <Menu.Item key="mail">
-                                <a href="http://sfjtechnologies.com/lemon-score/">
-                                    Lemon score
+                                <a href="http://sfjtechnologies.com/">
+                                    Home
                                 </a>
                             </Menu.Item>
-                            <Menu.Item key="team">
-                                <a href="http://sfjtechnologies.com/team/">
-                                    Team
-                                </a>
-                            </Menu.Item>
-                            <Menu.Item key="profile">
-                                <a href="javascript:void(0);" onClick={this.goProfile}>Profile</a>
-                            </Menu.Item>
+                            {
+                                this.state.current==='login'?<Menu.Item key="login">
+                                    <Link to='/login'>Login</Link>
+                                </Menu.Item>:''
+                            }
+                            {
+                                this.state.current==='login'?''
+                                :<Menu.Item key="search">
+                                    <a href="javascript:void(0);" onClick={this.goProfile} data-key='home'>Search</a>
+                                </Menu.Item>
+                            }
+                            {
+                                this.state.current==='login'?''
+                                :<Menu.Item key="profile">
+                                    <a href="javascript:void(0);" onClick={this.goProfile} data-key='profile'>Profile</a>
+                                </Menu.Item>
+                            }
                         </Menu>
                     </div>
                    
                 </header>
+                <div id='sfj_route'>
+                    {this.props.children}
+                </div>
             </div>
         )
     }

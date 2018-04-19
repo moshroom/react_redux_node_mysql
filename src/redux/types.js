@@ -28,4 +28,6 @@ export const PAGE_CLEAN_CURRENT = 'PAGE_CLEAN_CURRENT';
 // export const SHORTCUT_CLEAN = 'SHORTCUT_CLEAN';
 
 // 用户
-export const USER_INFO = 'USER_INFO';
+export const USER_INFOS = 'USER_INFOS';
+export const USER_LOG_INFOS = 'USER_LOG_INFOS';
+export const USER_CLEAN_INFOS = 'USER_CLEAN_INFOS';

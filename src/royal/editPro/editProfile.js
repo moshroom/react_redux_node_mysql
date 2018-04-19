@@ -32,18 +32,21 @@ class EditPass extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-        
+        <div>
+            <h2>Modify personal information</h2>
             <Form onSubmit={this.handleSubmit}>
-            <FormItem>
-                {getFieldDecorator('userName', {
-                    rules: [{ required: true, message: 'Please input your user name!' }],
-                })(
-                    <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} 
-                    placeholder="Please input your email"
-                    />
-                )}
+                <FormItem
+                label="userName">
+                    {getFieldDecorator('userName', {
+                        rules: [{ required: true, message: 'Please input your user name!' }],
+                    })(
+                        <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} 
+                        placeholder="Please input your email"
+                        />
+                    )}
                 </FormItem>
-                <FormItem>
+                <FormItem
+                label="New password">
                 {getFieldDecorator('password', {
                     rules: [{ required: true, message: 'Please input your Password!' }],
                 })(
@@ -56,7 +59,7 @@ class EditPass extends Component {
                     </Button>
                 </FormItem>
             </Form>
-        
+        </div>
     );
   }
 }

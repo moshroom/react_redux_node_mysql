@@ -23,6 +23,7 @@ class DataPick extends Component {
     
     return (
       <div className="search-item">
+        <p>Select one or more data fields:</p>
         <Select
             mode="multiple"
             style={{ width: '100%' }}

@@ -27,8 +27,9 @@ class DatePick extends Component {
         <br />
         <MonthPicker defaultValue={moment('2015/01', monthFormat)} format={monthFormat} />
         <br />*/}
+        <p>Choose a time period:</p>
         <RangePicker
-            defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
+            defaultValue={[moment('2018/01/01', dateFormat), moment('2018/01/01', dateFormat)]}
             format={dateFormat}
             onChange={this.onChange}
         />

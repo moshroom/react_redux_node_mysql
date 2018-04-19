@@ -90,6 +90,8 @@ class NormalLoginForm extends React.Component {
     this.setState({userName:e.target.value})
   }
   render() {
+    let { islog } = this.props;
+    console.log(islog)
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
@@ -179,7 +181,9 @@ class NormalLoginForm extends React.Component {
   }
 }
 function mapStateToProps(state) {
-    return {}
+    return {
+      islog: state.islog
+    }
 }
 
 function mapDispatchToProps(dispatch) {

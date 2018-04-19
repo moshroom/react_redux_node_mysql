@@ -26,10 +26,11 @@ class MyRadioGroup extends Component {
   render() {
      return (
         <div className="search-item">
-            <RadioGroup name="radiogroup" onChange={this.onChange} value={this.state.value}>
-                <Radio value={1}>download the file</Radio>
-                <Radio value={2}>send the file to your email</Radio>
-            </RadioGroup>
+          <p>Select the method to get the file:</p>
+          <RadioGroup name="radiogroup" onChange={this.onChange} value={this.state.value}>
+              <Radio value={1}>download the file</Radio>
+              <Radio value={2}>send the file to your email</Radio>
+          </RadioGroup>
         </div>
     );
   }

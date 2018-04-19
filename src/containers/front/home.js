@@ -23,7 +23,6 @@ import { replace } from 'react-router-redux'
 // import { getProduct } from '../../redux/actions/product'
 // import { getShortcut } from '../../redux/actions/shortcut'
 
-import SfjMenu from '../../royal/menu/menu'
 import DatePicker from '../../royal/datePicker/datePicker'
 import DataSelect from '../../royal/dataSelect/dataSelect'
 import Progress from '../../royal/Progress/Progress'
@@ -150,15 +149,15 @@ class Home extends Component {
         
         return (
             <div className="download">
-                <SfjMenu></SfjMenu>
                 <div className="mask">
                     <div className='login-bg'></div>
                 </div>
                 <div className='login-item download-log'>
                     <div className="container">
-                        <p>This content is password protected. To view it please enter your password below:</p>
+                        <p>Please enter your query conditions below:</p>
                         <div className="search">
                             <div className="search-item">
+                                <p></p>
                                 <Upload {...props}>
                                     <Button>
                                     <Icon type="upload" /> Upload

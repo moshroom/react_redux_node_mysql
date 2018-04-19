@@ -13,13 +13,13 @@ import Profile from '../containers/front/profile'
 // import 'bootstrap/dist/css/bootstrap-theme.css';
 
 const routes = (
-    <div>
-        <p>123456</p>
-        <Menu></Menu>
-        <Route path="/" component={Door} />
+    <Route path='/' component={Menu}>
+        <IndexRoute path="login" component={Door} />
+        <Route path="login" component={Door} />
         <Route path="home" component={Home} />
         <Route path="profile" component={Profile} />
-    </div>
+    </Route>
+    
 );
 
 export default routes
